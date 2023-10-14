@@ -3,8 +3,55 @@ import { BiSolidEditAlt } from 'react-icons/bi';
 import { MdDelete } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import PropTypes from "prop-types";
+import Swal from 'sweetalert2';
 
 const CoffeeItem = ({data}) => {
+
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+      })
+
+    const handleRemoveItem = (id) => {
+
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+          }).then((result) => {
+            if (result.isConfirmed) {
+
+                fetch(`http://localhost:5000/coffees/${id}`, {
+                    method: 'DELETE',
+                })
+                .then(res => res.json())
+                .then(data => console.log(data))
+
+              swalWithBootstrapButtons.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+              )
+            } else if (
+              /* Read more about handling dismissals below */
+              result.dismiss === Swal.DismissReason.cancel
+            ) {
+              swalWithBootstrapButtons.fire(
+                'Cancelled',
+                'Your imaginary file is safe :)',
+                'error'
+              )
+            }
+          })
+    }
+
     return (
         <div className="bg-[#f5f4f17a]  py-6 pl-4 pr-10 rounded-md flex justify-between items-center">
             <div>
@@ -18,9 +65,13 @@ const CoffeeItem = ({data}) => {
             </div>
 
             <div className="flex flex-col gap-4">
-                <Link className="text-2xl text-white p-2 bg-[#E3B577] rounded-md"><AiFillEye className=""></AiFillEye></Link>
-                <Link className="text-2xl text-white p-2 bg-[#3C393B] rounded-md"><BiSolidEditAlt className=""></BiSolidEditAlt></Link>
-                <Link className="text-2xl text-white p-2 bg-[#EA4744] rounded-md"><MdDelete className=""></MdDelete></Link>
+                <Link to={`/preview/${data._id}`} className="text-2xl text-white p-2 bg-[#E3B577] rounded-md"><AiFillEye className=""></AiFillEye></Link>
+                <Link
+                
+                className="text-2xl text-white p-2 bg-[#3C393B] rounded-md"><BiSolidEditAlt className=""></BiSolidEditAlt></Link>
+                <button
+                onClick={() => handleRemoveItem(data._id)}
+                className="text-2xl text-white p-2 bg-[#EA4744] rounded-md"><MdDelete className=""></MdDelete></button>
             </div>
         </div>
     );

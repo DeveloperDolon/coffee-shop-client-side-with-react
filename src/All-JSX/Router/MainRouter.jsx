@@ -6,6 +6,7 @@ import MainLayout from "../Layout/MainLayout";
 import Home from "../Pages/Home/Home";
 import CoffeeAdding from "../Pages/Coffee-adding/Coffee-Adding";
 import Preview from "../Components/Preview/Preview";
+import Edit from "../Pages/EditPage/Edit";
 
  export const MainRouter = createBrowserRouter([
     {
@@ -29,6 +30,11 @@ import Preview from "../Components/Preview/Preview";
             {
                 path: "/*",
                 element: "Sorry! Your request in not found!",
+            },
+            {
+                path: "/edit/:id",
+                loader: ({params}) => fetch(`http://localhost:5000/coffees/${params.id}`),
+                element: <Edit></Edit>
             }
         ]
     }

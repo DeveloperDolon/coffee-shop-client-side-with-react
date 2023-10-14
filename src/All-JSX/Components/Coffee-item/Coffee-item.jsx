@@ -38,7 +38,8 @@ const CoffeeItem = ({data}) => {
                 'Deleted!',
                 'Your file has been deleted.',
                 'success'
-              )
+              );
+              window.location.reload();
             } else if (
               /* Read more about handling dismissals below */
               result.dismiss === Swal.DismissReason.cancel
@@ -67,7 +68,7 @@ const CoffeeItem = ({data}) => {
             <div className="flex flex-col gap-4">
                 <Link to={`/preview/${data._id}`} className="text-2xl text-white p-2 bg-[#E3B577] rounded-md"><AiFillEye className=""></AiFillEye></Link>
                 <Link
-                
+                to={`/edit/${data._id}`}
                 className="text-2xl text-white p-2 bg-[#3C393B] rounded-md"><BiSolidEditAlt className=""></BiSolidEditAlt></Link>
                 <button
                 onClick={() => handleRemoveItem(data._id)}

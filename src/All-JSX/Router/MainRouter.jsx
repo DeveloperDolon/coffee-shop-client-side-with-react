@@ -9,6 +9,7 @@ import Preview from "../Components/Preview/Preview";
 import Edit from "../Pages/EditPage/Edit";
 import SignIn from "../Pages/SignIn/SignIn";
 import SignUp from "../Pages/Signup/SignUp";
+import UsersPage from "../Pages/Users/UsersPage";
 
  export const MainRouter = createBrowserRouter([
     {
@@ -45,6 +46,11 @@ import SignUp from "../Pages/Signup/SignUp";
             {
                 path: "/signup",
                 element: <SignUp></SignUp>
+            }, 
+            {
+                path: "/users",
+                loader: () => fetch("http://localhost:5000/users"),
+                element: <UsersPage></UsersPage>    
             }
         ]
     }

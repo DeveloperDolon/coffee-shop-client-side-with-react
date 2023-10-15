@@ -18,6 +18,10 @@ const Header = () => {
         }
     }
 
+    const handleLogOut = () => {
+        alert("hello world.")
+    }
+
     const navItems = <>
         <li><NavLink to="/">Home</NavLink></li>
         <li><NavLink to="/users">Users</NavLink></li>
@@ -58,7 +62,7 @@ const Header = () => {
                                             {user.displayName}
                                         </li>
                                         <li className="text-sm border-b userInfo">
-                                            <button className="userInfo">Log Out</button>
+                                            <button onClick={handleLogOut} className="userInfo">Log Out</button>
                                         </li>
                                     </ul>
                                 </div>

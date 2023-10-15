@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import app from "../firebase/firebase.config";
-import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, deleteUser } from "firebase/auth";
 
 export const MyContext = createContext();
 
@@ -14,6 +14,10 @@ const DataContext = ({children}) => {
     const createUserWithEmailPassword = (email, password) => {
         setLoading(true);
         return createUserWithEmailAndPassword(auth, email, password);
+    }
+
+    const deleteUserAccount = () => {
+        return deleteUser(auth.currentUser);
     }
 
     useEffect(() => {
@@ -29,7 +33,8 @@ const DataContext = ({children}) => {
     const contextData = {
         createUserWithEmailPassword,
         user,
-        loading
+        loading,
+        deleteUserAccount
     }
 
     return (

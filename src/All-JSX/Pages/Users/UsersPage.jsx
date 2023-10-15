@@ -36,7 +36,7 @@ const UsersPage = () => {
                     return;
                 })
 
-                fetch(`http://localhost:5000/users/${id}`, {
+                fetch(`https://coffee-store-server-side-express-mongodb-fi47k6txb.vercel.app/users/${id}`, {
                     method: 'DELETE',
                 })
                 .then(() => {

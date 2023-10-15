@@ -21,7 +21,7 @@ const Edit = () => {
 
         const productInfo = {name, supplier, category, chef, taste, details, photoUrl};
         
-        fetch(`http://localhost:5000/coffees/${data._id}`, {
+        fetch(`https://coffee-store-server-side-express-mongodb-fi47k6txb.vercel.app/coffees/${data._id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"

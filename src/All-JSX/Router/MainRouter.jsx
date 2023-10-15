@@ -18,7 +18,7 @@ import UsersPage from "../Pages/Users/UsersPage";
         children: [
             {
                 path: "/",
-                loader: () => fetch("http://localhost:5000/coffees"),
+                loader: () => fetch("https://coffee-store-server-side-express-mongodb-fi47k6txb.vercel.app/coffees"),
                 element: <Home></Home>
             },
             {
@@ -27,7 +27,7 @@ import UsersPage from "../Pages/Users/UsersPage";
             },
             {
                 path: "/preview/:id",
-                loader: ({params}) => fetch(`http://localhost:5000/coffees/${params.id}`),
+                loader: ({params}) => fetch(`https://coffee-store-server-side-express-mongodb-fi47k6txb.vercel.app/coffees/${params.id}`),
                 element: <Preview></Preview>
             },
             {
@@ -36,7 +36,7 @@ import UsersPage from "../Pages/Users/UsersPage";
             },
             {
                 path: "/edit/:id",
-                loader: ({params}) => fetch(`http://localhost:5000/coffees/${params.id}`),
+                loader: ({params}) => fetch(`https://coffee-store-server-side-express-mongodb-fi47k6txb.vercel.app/coffees/${params.id}`),
                 element: <Edit></Edit>
             },
             {
@@ -49,7 +49,7 @@ import UsersPage from "../Pages/Users/UsersPage";
             }, 
             {
                 path: "/users",
-                loader: () => fetch("http://localhost:5000/users"),
+                loader: () => fetch("https://coffee-store-server-side-express-mongodb-fi47k6txb.vercel.app/users"),
                 element: <UsersPage></UsersPage>    
             }
         ]

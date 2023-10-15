@@ -27,7 +27,7 @@ const SignUp = () => {
             .then()
             .catch(err => console.error(err));
 
-            fetch("http://localhost:5000/users",  {
+            fetch("https://coffee-store-server-side-express-mongodb-fi47k6txb.vercel.app/users",  {
                 method: "POST", 
                 headers: {
                     "Content-Type": "application/json"

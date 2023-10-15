@@ -7,6 +7,8 @@ import Home from "../Pages/Home/Home";
 import CoffeeAdding from "../Pages/Coffee-adding/Coffee-Adding";
 import Preview from "../Components/Preview/Preview";
 import Edit from "../Pages/EditPage/Edit";
+import SignIn from "../Pages/SignIn/SignIn";
+import SignUp from "../Pages/Signup/SignUp";
 
  export const MainRouter = createBrowserRouter([
     {
@@ -35,6 +37,14 @@ import Edit from "../Pages/EditPage/Edit";
                 path: "/edit/:id",
                 loader: ({params}) => fetch(`http://localhost:5000/coffees/${params.id}`),
                 element: <Edit></Edit>
+            },
+            {
+                path: "/login",
+                element: <SignIn></SignIn>
+            },
+            {
+                path: "/signup",
+                element: <SignUp></SignUp>
             }
         ]
     }

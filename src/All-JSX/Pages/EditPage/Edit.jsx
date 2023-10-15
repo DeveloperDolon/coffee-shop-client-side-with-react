@@ -1,6 +1,7 @@
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { Link, useLoaderData } from "react-router-dom";
 import bgImg from "../../../assets/11.png";
+import Swal from "sweetalert2";
 
 const Edit = () => {
 
@@ -28,7 +29,13 @@ const Edit = () => {
             body: JSON.stringify(productInfo)
         })
         .then(res => res.json())
-        .then(data => console.log(data));
+        .then(() => {
+            Swal.fire(
+                'Updated!',
+                'Item has been Updated.',
+                'success'
+              );
+        });
 
         e.target.name.value = "";
         e.target.supplier.value = "";

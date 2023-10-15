@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { MyContext } from "../../ContextProvider/DataContext";
 import { updateProfile } from "firebase/auth";
+import Swal from "sweetalert2";
 
 const SignUp = () => {
 
@@ -16,13 +17,48 @@ const SignUp = () => {
 
         createUserWithEmailPassword(email, password)
         .then(res => {
+            
+            const lastSignInTime = res.user.metadata.lastSignInTime;
+
             updateProfile(res.user, {
                 displayName: name,
             })
             .then()
-            .catch(err => console.error(err))
+            .catch(err => console.error(err));
+
+            fetch("http://localhost:5000/users",  {
+                method: "POSt", 
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({name, email, lastSignInTime})
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.acknowledged) {
+                    Swal.fire(
+                        'Successfully user Registered!',
+                        'You clicked the button!',
+                        'success'
+                      )
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href="">Why do I have this issue?</a>'
+                      })
+                }
+            });
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: err.message,
+                footer: '<a href="">Why do I have this issue?</a>'
+              })
+        })
     }
 
     return (

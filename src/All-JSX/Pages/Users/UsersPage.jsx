@@ -30,7 +30,6 @@ const UsersPage = () => {
         }).then((result) => {
             if (result.isConfirmed) {
 
-
                 deleteUserAccount()
                 .then(() => console.log("User deleted")).catch(err => {
                     console.log(err);
@@ -41,12 +40,13 @@ const UsersPage = () => {
                     method: 'DELETE',
                 })
                 .then(() => {
-                    console.log("hello world")
-
                     const newUsers = updatedUsers.filter(user => {
                         return user._id !== id;
                     });
                     setUpdatedUsers(newUsers);
+                }).catch((err) => {
+                    console.log(err);
+                    return;
                 })
 
               swalWithBootstrapButtons.fire(

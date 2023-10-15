@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { MyContext } from "../../ContextProvider/DataContext";
 import { updateProfile } from "firebase/auth";
 import Swal from "sweetalert2";
+import SocialLogIn from "../../Components/SocialLogin/SocialLogIn";
 
 const SignUp = () => {
 
@@ -27,7 +28,7 @@ const SignUp = () => {
             .catch(err => console.error(err));
 
             fetch("http://localhost:5000/users",  {
-                method: "POSt", 
+                method: "POST", 
                 headers: {
                     "Content-Type": "application/json"
                 },
@@ -64,11 +65,7 @@ const SignUp = () => {
     return (
         <div className="max-w-7xl mx-auto lg:p-0 p-5">
             <div className="md:w-[70%] bg-slate-100 mx-auto md:py-20 my-20 rounded-lg py-10 md:px-32 px-5">
-                <div className="grid grid-cols-1 lg:px-36 md:px-10 px-0 mb-5 gap-3 items-center">
-                    <button className="btn bg-yellow-500">Sign with Google</button>
-                    <button className="btn bg-yellow-500">Sign with Twitter</button>
-                    <button className="btn bg-yellow-500">Sign with Github</button>
-                </div>
+                <SocialLogIn></SocialLogIn>
                 <h1 className="text-center mb-5">or</h1>
                 <form onSubmit={handleCreateUser} className="space-y-5">
                     <label className="block w-full" htmlFor="name">Username <br />

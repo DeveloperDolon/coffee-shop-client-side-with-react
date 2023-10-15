@@ -3,10 +3,11 @@ import { NavLink } from "react-router-dom";
 import logo from "../../../assets/logo1.png";
 import { useContext, useState } from "react";
 import { MyContext } from "../../ContextProvider/DataContext";
+import Swal from "sweetalert2";
 
 const Header = () => {
 
-    const {user} = useContext(MyContext);
+    const {user, logOut, setUser} = useContext(MyContext);
 
     const defalutImageLink = "data:image/png;base64,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";
 
@@ -18,8 +19,17 @@ const Header = () => {
         }
     }
 
+    //  the quick fox jump over the lazy dog wshnb. the quick fox jump over the lazy
+
     const handleLogOut = () => {
-        alert("hello world.")
+        logOut().then(() => {
+            setUser(null)
+            Swal.fire(
+                'Log out sucessfully!',
+                'You clicked the button!',
+                'success'
+            )
+        }).catch(err => console.error(err));
     }
 
     const navItems = <>

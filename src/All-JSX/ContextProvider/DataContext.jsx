@@ -1,12 +1,12 @@
 import { createContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import app from "../firebase/firebase.config";
-import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, deleteUser } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, deleteUser, signInWithEmailAndPassword, signOut, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 export const MyContext = createContext();
 
 const DataContext = ({children}) => {
-
+    const googleProvider = new GoogleAuthProvider();
     const auth = getAuth(app);
     const [user, setUser] = useState(null);
     const [loading , setLoading] = useState(true);
@@ -18,6 +18,19 @@ const DataContext = ({children}) => {
 
     const deleteUserAccount = () => {
         return deleteUser(auth.currentUser);
+    }
+
+    const googleLogin = () => {
+        return signInWithPopup(auth, googleProvider);
+    }
+
+
+    const loginWithEmailPassword = (email, password) => {
+        return signInWithEmailAndPassword(auth, email, password);
+    }
+
+    const logOut = () => {
+        return signOut(auth);
     }
 
     useEffect(() => {
@@ -34,7 +47,11 @@ const DataContext = ({children}) => {
         createUserWithEmailPassword,
         user,
         loading,
-        deleteUserAccount
+        deleteUserAccount,
+        loginWithEmailPassword,
+        logOut,
+        setUser,
+        googleLogin
     }
 
     return (
